@@ -11,8 +11,6 @@ Each thread does ++counter 100,000 times, protected by a mutex
 Main joins all threads and prints the final counter (should be 300,000)
 Each thread also prints "Thread X done" after its loop
 
-
-
 */
 
 #define THREADS 3

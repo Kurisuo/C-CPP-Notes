@@ -1,0 +1,43 @@
+
+**Interview Checklist**
+
+1 - Read Statement Twice
+        - Work out examples outloud 
+        - Ask for:
+            - Edge cases
+            - Input / output format
+            - Scale Constraints
+
+2 - Design the Algorithm 
+        - Minimal Sketch of Naive Solution
+        - Identify Bounds
+        - Look for triggers
+
+3 - Explain the Solution
+        - Name & Justify
+
+4 - Code the Solution
+        - Main Logic
+        - Helper Functions
+        - STOP If I get confused
+
+5 - Verify the Solution 
+        - Top - Bottom Pass
+        - Check Edge cases
+        - Verify Analysis
+
+**TIER 1 TOPICS**         **TIER 2 TOPICS***
+
+- Dynamic Arrays          - Heaps
+- String Manipulation     - Sliding Windows
+- Two Pointers            - Backtracking
+- Grids / Matrices        - Dynamic Programming
+- Binary Search           - Prefix Sums
+- Sets / Maps             - Greedy Algorithms
+- Sorting                 - Topological Sort
+- Linked List
+- Stacks & Queues
+- Trees
+- Recursion
+- Graphs
+

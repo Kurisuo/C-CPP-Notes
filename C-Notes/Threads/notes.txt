@@ -34,3 +34,25 @@ MUTEX
     return 0;
 }
 *****
+
+
+**** Parallel 
+
+int main(int argc, char* argv[]){ 
+    pthread_t threads[6]; //Six Cores
+
+    for (int i = 0; i < 6; i++){ 
+        pthread_create(threads + i, NULL, &func, NULL);
+        return 1;
+    }
+    printf("Thread %d has started.\n", i);
+
+    for(int i = 0; i < 6; i++){
+        pthread_join(threads[i], NULL);
+        return 2;
+    }
+    printf("Thread %d has completed execution.\n", i);
+
+    
+
+}
