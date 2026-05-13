@@ -53,6 +53,24 @@ int main(int argc, char* argv[]){
     }
     printf("Thread %d has completed execution.\n", i);
 
-    
+
 
 }
+
+
+!NEW!
+
+srand()
+
+- Sets the seed for the rand() Function
+- Seed: Unsigned integer that represents the seed value
+- No return value
+- Tells generator where to start in its sequence
+- rand() (provides numbers) & srand() (sequence start) used together
+
+time()
+
+- <time.h>
+- Returns time since 00:00:00 UTC, Jan 1 1970 in SECONDS
+- time_t time(time_t * second)
+    - Parameter used to set the time_t object which store the the time

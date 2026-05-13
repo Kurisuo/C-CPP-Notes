@@ -1,0 +1,26 @@
+
+
+
+***Chapter 5 Pointers*** -- Pointers Review
+
+sizeof() -- Determines how many bytes of memory a type utilzes
+--> %zu used as type specifier for typer size_t
+
+Ex:
+
+printf("the int type utilizes %zu bytes\n", sizeof(int));
+
+pointers - a variable holding the address of data
+    -> A variable holding the address of another variable is a pointer
+    -> Imagine a house which has some address. We can make a pointer variable that holds the address of said house, pointing to it.
+    -> We can follow the pointer to access the information ourselves
+
+"address-of" operator: '&'
+
+---> %p is the format specifier for  pointer 
+---> The memory address we get may be huge, which represnts the virtual memory location our value is being stored in 
+
+int i;
+int *p; //can hold the addresses of other ints
+p = &i;
+
