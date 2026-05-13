@@ -1,0 +1,36 @@
+
+
+MUTEX
+
+- pthread_mutex_destroy(&mutex, NULL)
+- pthread_mutex_init(&mutex, NULL)
+- pthread_init(&t1, NULL, &func, NULL)
+- pthread_join(t1, NULL)
+
+
+- System waits for first Thread to finish execution and be collected by pthread_join(), only then does the next Thread recieve the lock to access the critical region.
+- Is parallelism still existent if we are forced to wait for a thread to finish execution before letting another thread continue into the critical region?
+    - Not recommended to use for-loop strategy implemented within forloopthreading.collected
+
+***** Non-parallel
+    int main(int argc, char* argv[]) { 
+    pthread_t threads[4];
+    int i;
+    pthread_mutex_init(&mutex, NULL); //initilaize mutex
+    for (i = 0; i < 4; i++ ){ 
+        if (pthread_create(threads + i, NULL, &routine, NULL) != 0){
+            return 1;       
+        }
+        printf("Thread %d has started", i);
+        if (pthread_join(threads[i], NULL) != 0){
+            return 2;
+        }
+        printf("Thread %d has finished execution\n", i);
+    }
+
+    pthread_mutex_destroy(&mutex); //destroy mutex   
+    printf("Number of mails: %d\n", mails);
+
+    return 0;
+}
+*****
