@@ -1,0 +1,128 @@
+Semaphores
+
+
+- Spin locks work, but threads burn CPU spinning in while(locked){ }
+    - We need to put the threads to sleep while waiting and get woken when the lock becomes free
+
+*What is a Semaphore?*
+- Has Two ATOMIC operations
+- And integer ’S’
+
+Up(S): S = S + 1
+Down(S): while (S <= 0) {}; S = S - 1 //blocks when S <= 0
+- While loop is conceptual 
+    - The thread SLEEPS on a WAIT QUEUE
+    - OS wakes sleeping thread when Up() is called
+
+- P() = Down “Try to reduce”
+- V() = Up “Increase”
+    - AKA: P/V, or wait/signal, or down/up
+
+*Two Forms of Semaphores*
+
+- Binary Semaphore: value of either 0 or 1. 
+    - Behaves like a LOCK
+- Counting Semaphore: value is the set of all integers.
+    - Counts RESOURCES
+
+*Mutex (Mutual Exclusion)*
+
+1. Only one thread in a critical region
+2. Any number of threads
+3. No thread outside a crit region can block another thread
+4. No thread can wait forever to enter its critical region
+
+- Initialize to 1
+- Down() to Enter
+- Up() to Leave
+- Only ONE thread in the critical section at a time
+
+Semaphore M = 1
+
+thread A:           thread B:
+    M.down()           M.down()
+    //critical         //critical
+    M.up()             M.up()
+- M == 0 when thread A is inside
+    - B blocks at M.down() until A calls M.up()
+
+Rendezvous (One thread waiting for another)
+Semaphore A = 0
+Semaphore B = 0
+
+thread A:           thread B:
+  ...                 ...
+  B.down()            B.up()       // tells A "I got here"
+  A.up()              A.down()     // waits until A got here
+  ...                 ...
+- Neither proceed down() until the other has reached its up()
+
+
+*Bounded Buffer (Producer/Consumer)* 
+
+- Producer wait until buffer FULL
+- Consumers wait until buffer EMPTY
+- Mutual exclusion on the buffer itself
+
+#define N <size>
+Item buffer[N];
+int in = 0, out = 0;
+
+Sem empty(0);    // counts FULL cells   — blocks consumer when 0
+Sem full(N); // counts EMPTY cells  — blocks producer when 0
+Sem mutex(1);    // binary, protects buffer
+
+- empty(): counts FULL cells - blocks consumer when 0
+- full(): counts EMPTY cells - blocks producer when 0
+
+void push(Item item) {           Item pop() {
+  full.down();   // wait if no     empty.down();  // wait if no
+                 // empty cells                   // full cells
+  mutex.down();                    mutex.down();
+  buffer[in] = item;               Item it = buffer[out];
+  in = (in + 1) % N;               out = (out + 1) % N;
+  mutex.up();                      mutex.up();
+  empty.up();    // one more       full.up();     // one more
+                 // full cell                     // empty cell
+}                                  return it;
+                                 }
+
+
+
+
+What if we don’t have MUTEX: 
+
+*Strict Alternation*
+- Taking turns
+- Use a shared variable to keep track of whose turn it is
+    - Waiting thread will continuously read the variable to see if it can proceed 
+
+Thread #1
+while(TRUE){ 
+    while(turn != 0){ 
+    }
+ critical_region()
+ turn = 1;
+noncritical_region()'
+}
+
+Thread#2
+while(TRUE){ 
+    while(turn != 1){}
+ critical_region()
+ turn = 0;
+noncritical_region()'
+}
+
+Properties of Strict Alternation:
+- Only one thread in the critical region 
+- Any number of threads — not satisfied! Only two threads
+- No thread outside a crit region can block another thread — not satisfied
+- No thread can wait forever to enter its crit region — not satisfied
+
+*Dekker’s Algorithm*
+
+
+
+
+*Lamports Bakery Algorithm*

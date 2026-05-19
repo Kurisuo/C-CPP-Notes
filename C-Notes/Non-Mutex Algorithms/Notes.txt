@@ -1,0 +1,38 @@
+
+## Lecture Question: Initialize:
+ - Can we build a lock using only regular reads and writes to memory?
+    - Yes, but with sacrifices
+
+## Methods: 
+ 1: Strict Alternation (Fails Badly)
+ 2: Dekker's Algorithm (Works for 2 Threads)
+
+
+! Multiple Threads, which share the same variables, attempting to access the Critial Section may cause race conditions.
+ - Mutual Exclusion ensures the critical section is only accessed by only one thread at a time
+
+** View setup.c for code without lock example**
+
+## 4 Properties of a Good lock
+
+ - Must be MUTUALLY EXCLUSIVE: At most one thread is inside the critical region at any given moment
+ - Generality: Must be able to support ANY number of threads
+ - Independence: A thread outside of the critical region must NOT block another thread from entering the critical region
+ - Bounded Waiting: No thread should be stuck/forced into waiting before entering its critical region
+
+## Strict Alternation (Taking Turns)
+
+ -  We use a variable *TURN* which indicates which thread must go next
+ - The thread whose turn is not active is stuck in a *SPIN LOCK*
+
+
+
+** active recall **
+
+mutual exclusivity: at most one thread inside of the crit region at all times at any given moment
+independence: no thread should block another from entering its crit region
+spin block: no thread should be stuck forever in a loop waiting to enter its crit region
+Generality: should support up to N amount of threads
+
+
+
