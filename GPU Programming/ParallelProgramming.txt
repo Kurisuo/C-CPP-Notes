@@ -1,0 +1,33 @@
+## Parallel Programming on CPUs and GPUs
+
+
+- AI, Audio-Video Processing, Singals Processing can all be written using Multi-Processing
+- OS balance multiple tasks and background threads
+- We can have inactive threads
+- Memory Caching: Used to shift thread state memory between solid memory states
+- Scheduling algorithmic shift threads between inactive and active
+- Varies my Cores & Cycles
+
+
+## Pitfalls in Concurrent Programming
+
+- Race Conditions
+    - Expected order of thread operations is not followed and issues arrise
+- Resource Contention
+    - Multiple threads attempting to access or modify the same memory which causes conflictions
+- Dead lock
+    - Multiple processes blocked from making progresss while waiting for a Resource
+    Ex:Resource 1 (assigned to p1) --> process 1 (waiting for r2) ---> resource 2 (assigned to p2) ----> resource 1 
+- Live Lock:
+    - Processes are actively running; like dead lock
+- resource Under/Overutilization
+    - Too little work: causes the CPU to IDLE
+    - Too many threads: CPU spend time context switching
+    - Memory becomes too large or changes too frequently
+
+## Algorithms & Challenges
+
+- Dining Philosphers
+- Producer - Consumer
+- Sleeping Barber 
+- Data and Code Synchronization
