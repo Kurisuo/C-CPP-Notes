@@ -31,3 +31,33 @@
 - Producer - Consumer
 - Sleeping Barber 
 - Data and Code Synchronization
+
+### Dining Philosphers
+
+- Each Philospher has a fork to their left and right
+- We need an algorithm allowing them all to eventually
+- If half of the philosophers had both forks and did not release them, the other half of the philosophers only attempted to get a fork if both were available. would be experiencing: Resource Starvation
+
+### Producer - Consumer 
+
+- Producers add data in the order it needs to be processed
+- Consumers read data in order without duplication
+- Easy to produce race conditions, such as if the consumer pointer gets ahead of the producer pointer
+
+### Sleeping Barber 
+
+- Similar to Consumers
+- N Customers can are waiting
+- 1 "Barber"
+    - When inactive, barber sleeps
+    - If the barber is inactive, a "customer" wakes the "barber" then sleeps
+    - If there is no space, the "customer" leaves
+- Race conditions cannot occur under this algorithm, only allows one thread to access the operation at a time while forcing all others to waiting
+- Pitfalls:
+    - Resource Contention
+    - Underutilization
+    - Dead Lock
+
+### Synchronization
+
+- Locks, Sempahores, Algorithms
