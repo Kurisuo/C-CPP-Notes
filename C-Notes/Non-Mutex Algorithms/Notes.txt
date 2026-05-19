@@ -25,7 +25,22 @@
  -  We use a variable *TURN* which indicates which thread must go next
  - The thread whose turn is not active is stuck in a *SPIN LOCK*
 
+** Refer to alternation.c for example **
+ - We can assume the operations are Atomic because we are *setting* rather than incrementing
+ - However, say we have a case where a thread is in its noncritical state but is stuck there doing a long operation, this would violate principles 3 and 4, keeping the other thread blocked from accessing its critical region.
 
+## Dekker's Algorithm
+
+- Each thread proclaims interest via a flag 
+- the TURN variable does not enforce alternation here but rather is used as a tiebreaker when multiple threads attempt accessing the critical region
+
+- Assumes Atomic single word reads/writes; turn never returns garbage from a corrupt write
+- Coherent memory: when thread 0 writes, thread 1 will eventually see that write
+- COnsistent memory ordering: the threads see memory operations in the order in which they appear in the program
+
+! Modern CPUs can delay writes and are aggressive on reordering, we require memory barries !
+
+-> LOCK CMPXCHG (x86)| LDREX / STREX (ARM)
 
 ** active recall **
 
