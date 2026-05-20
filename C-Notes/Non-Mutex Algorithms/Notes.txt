@@ -48,6 +48,23 @@ mutual exclusivity: at most one thread inside of the crit region at all times at
 independence: no thread should block another from entering its crit region
 spin block: no thread should be stuck forever in a loop waiting to enter its crit region
 Generality: should support up to N amount of threads
+Dekkers ALgorithm: 
+    - Threads proceed using Flags to indicate interest in accessing the critical region
+    - TURN does not force alternation but rather is suggestive
+Coherent Memory: A thread should be able to see another threads writing to memory 
+consistent memory ordering: Guarentees that all threads observe all atomic operations at the same sequential order
 
 
+## Lamport's Algorithm
 
+- Works with N threads through mutual exclusion.
+- Uses the Deli Counter analogy:
+    - Thread Walks in, takes a number, and is assisted based on the next lowest number
+    - WHen the thread is assisted (enters the critical region), drop the number back down to 0
+- Utilizes two arrays
+- Each Thread (i) owns two variables. No other varible may write to (i), however, they can READ into them
+- Number[i] - ticket number
+- Entering[i] - Flag indicating chossing a number[i]
+- NUMBER PICKING IS NOT ATOMIC! Two threads can have 
+    - The tiebreaker is based on lexicographic order
+    - the thread with the smaller ID wins
