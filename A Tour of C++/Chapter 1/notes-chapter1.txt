@@ -1,0 +1,21 @@
+//Anything New or Refreshed notes Will Be typed here
+//All other Notes will be excluded
+
+char : 8-bit 
++x : unary plus
+-x: unary minus
+x^y : bitwas exclusive or
+~x : complement
+&x : unary & reference 
+
+use {} for setting rather than = 
+ex: 
+    double d2 {2.3};
+auto : used when we do not have to specify the type
+const : non-modifiable, used when passing info through pointers
+
+"pure functions": cannot modify non-local variables 
+    constexpr : evaluated at compile time or runtime, used to specify constants and allowplacement of data in read-only memory
+    consteval : forces execution at compile time
+
+range-for-statement: loops traversing a simple sequence
