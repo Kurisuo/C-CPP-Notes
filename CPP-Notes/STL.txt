@@ -1,0 +1,25 @@
+std::vector
+std::string
+
+push_back()
+pop_back()
+size()
+empty()
+back()
+capacity() //memory allocated
+
+
+
+std::unordered_map
+std::unordered_set
+std::map
+std::set
+
+std::stack
+std::Queue
+std::priority_queue
+
+std::sort
+std::reverse
+std::binary_search
+std::lower_bound
