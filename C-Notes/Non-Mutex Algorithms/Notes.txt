@@ -68,3 +68,35 @@ consistent memory ordering: Guarentees that all threads observe all atomic opera
 - NUMBER PICKING IS NOT ATOMIC! Two threads can have 
     - The tiebreaker is based on lexicographic order
     - the thread with the smaller ID wins
+
+
+## Reader - Writer Locks
+
+    - Majority of programs want to perform READ-ONLYs rather than writes, thus they must be EXCLUSIVE
+    - Multiple readers hold the lock at the same time
+    - Only one writer may hold a lock exclusively -- as in no readers and no other writers other than itself
+    - By rwlocking the read heavy workload, we dramatically increase throughput and as such parallelism
+    - We choose rwlock over mutexing when we need to perform a high number of reads compare to writes 
+
+## Monitors
+
+    - High Level synchronization primitive
+    - Multiple languages do not support Monitors
+        - Multiple entry points
+        - AT MOST ONE THREAD inside the monitor at all times
+        - Enforces mutual exclusivity
+        - All variables inside a monitor are protected from simultaneous access
+    - The implementation of Monitors is typically handled by the language/compiler
+    - A Single thread can be in multiple functions,but no other threads can use said functions at the same time
+    - We use Condition Variables within Monitors
+        - Wait() suspends the thread until signaled
+        - Signal() wakes up the thread waiting on said condition variable
+            - if not thread is waiting then signal has no effect
+    - We are not required to mark critical region boundaries with mutexes
+
+    Which thread gets the monitor after signal()? -> 
+
+    - Mesa Semantics:
+        - Awoken thread placed into a ready queue. competed for the lock and runs at a later convenient time
+    - Hoare Semantics: 
+        - Awoken thread runs immediately. the signaling thread pauses. ownership of monitor lock and CPU passed to the waiter
