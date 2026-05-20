@@ -58,6 +58,7 @@ Upcoming
 Planned
 - **CSE 120** —- Computer Architecture
 - **CSE 138** -- Distributed Systems
+- ** CSE 140** -- Artifical Intelligence
 - **CSE 142** -- Machine Learning
 - **CSE 150** -- Computer Networks
 - **CSE 187** -- Full Stack II
