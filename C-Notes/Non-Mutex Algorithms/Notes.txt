@@ -54,7 +54,6 @@ Dekkers ALgorithm:
 Coherent Memory: A thread should be able to see another threads writing to memory 
 consistent memory ordering: Guarentees that all threads observe all atomic operations at the same sequential order
 
-
 ## Lamport's Algorithm
 
 - Works with N threads through mutual exclusion.
@@ -68,7 +67,6 @@ consistent memory ordering: Guarentees that all threads observe all atomic opera
 - NUMBER PICKING IS NOT ATOMIC! Two threads can have 
     - The tiebreaker is based on lexicographic order
     - the thread with the smaller ID wins
-
 
 ## Reader - Writer Locks
 

@@ -19,3 +19,6 @@ const : non-modifiable, used when passing info through pointers
     consteval : forces execution at compile time
 
 range-for-statement: loops traversing a simple sequence
+
+nullptr
+
