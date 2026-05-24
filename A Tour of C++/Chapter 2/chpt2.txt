@@ -1,0 +1,27 @@
+
+
+New Info to add on:
+
+void ex(Vector v, Vector& rv, Vector* pv){ 
+    int ex1 = v.numElements; //access through name 
+    int ex2 = rv.numElements; //access through reference 
+    int ex3 = pv -> numElements; //access through a pointer
+
+}
+
+Use pass-by-value (name) when I want to make a new independent copy of the original object without affecting the original
+    - Avoid if using large object sets
+Use pass-by-reference (reference) when I want to access the actual object at its address without worrying about poitner arithmatic 
+    - A reference must always refer to a valid existing object, CANNOT be NULL
+Use pass-by-pointer when dealing with something like dynamic memory 
+
+
+
+
+Old:
+
+- 'new' operator: allocates memory fron the free store (heap / dynamic memory)  
+    - Objects allocated on the free store are independent from the scope in which they were created
+    - Must be destoryed using the: 
+        - 'delete' operator
+
