@@ -23,3 +23,18 @@ std::sort
 std::reverse
 std::binary_search
 std::lower_bound
+
+
+
+
+# std::mt19937
+
+//Mersenne Twister 19937 algorithm 
+//naming it rng
+//calling the constructor by using parenthesis
+//std::chrono::steady_clock -> asking for current time to get unique seed for generator
+//::now() used for grabbing EXACT time on the clock
+//.time_since_epoch() --> time elapsed since computer initally booted up
+//.count() gives us an exact number of hardware ticks that have elapsed
+
+std::mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
