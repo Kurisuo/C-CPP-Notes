@@ -14,15 +14,15 @@ std::condition_variable cond; //conditional var
 
 
 //Mersenne Twister 19937 algorithm 
-//naming it rng
+//naming it generate
 //calling the constructor by using parenthesis
 //std::chrono::steady_clock -> asking for current time to get unique seed for generator
 //::now() used for grabbing EXACT time on the clock
 //.time_since_epoch() --> time elapsed since computer initally booted up
 //.count() gives us an exact number of hardware ticks that have elapsed
-std::mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
-
+std::mt19937 generate(std::chrono::steady_clock::now().time_since_epoch().count());
 std::uniform_int_distribution<int> dist(0, 99);
+
 
 
 class Buffer { 
