@@ -1,0 +1,35 @@
+Pair System: Key : Value
+Complexity: O(1) Lookup & Insertion
+
+Collisions: Two keys accessing the same value --> Collision Handling Implemented within most languages
+Keys must be HASHABLE
+    -> numbers
+    -> strings
+    -> tuples
+    
+    -> x lists
+    -> x dicitonaries
+
+Used for finding values that already exist; Storing information a smarter way
+
+No Hash: O(n)
+Hash: O(1)
+
+
+C++ Syntax:
+
+
+#include <unordered_map> //no sorted order
+3include <map> //sorted ---> O(log n) time ---> uses red-black tree implementation
+
+
+unordered_map<key, value> hashMap;
+map<key, value> map;
+
+.at() //use this to replace values 
+
+map.at("key") = x;
+
+
+Ex (Frequency Map):
+

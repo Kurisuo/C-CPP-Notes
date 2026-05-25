@@ -1,0 +1,11 @@
+Big O Notation
+
+O(1) : Constant Time 
+    - Accessing Specific Index in Array
+O(logn) :
+
+O(n) : Linear Transversal
+
+O(n log n) : Sorting
+
+O(n*n) : nested for loops
