@@ -20,8 +20,14 @@ std::condition_variable cond; //conditional var
 //::now() used for grabbing EXACT time on the clock
 //.time_since_epoch() --> time elapsed since computer initally booted up
 //.count() gives us an exact number of hardware ticks that have elapsed
+
 std::mt19937 generate(std::chrono::steady_clock::now().time_since_epoch().count());
 std::uniform_int_distribution<int> dist(0, 99);
+
+
+
+
+
 
 
 
