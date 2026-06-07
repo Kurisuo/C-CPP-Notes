@@ -1,0 +1,197 @@
+## Performance
+
+
+Latency: The elapsed time for one item to arrive at its destination 
+---> Latency = 1 / Throughput
+Throughput (Bandwidth): The quantity of total items that arrived at the destination
+----> rate of actions per unit time
+
+How do we improve performance:
+
+- Pipelining: Introduces multiple split busy operations to increase Throughput, uses thread/memory per stagre which are virtualized
+    - All stages are independent 
+    - Time for a single request to go through all stages in pipelining:
+        ---> L_A&B >= L_A + L_B (The total time of a request is equal to the latency of one thread and the latency of another)
+        ---> Latency = sum(Latencies)
+    - Throughput rate is limited by the SLOWEST stage:
+        ---> RA&B <= min(R_A, R_B) (throughtput is limited by either R_A or R_B, whichever is the slowest)
+        ---> Throughput = min(Throughputs)
+
+- Concurrency: Reduce Latency and Increase throughput by introducing PARALLEL subtasks
+    -- ex: in a factory, a team builds the car body while another team assmebles the engine and so on
+
+    --System Latency = module Latency
+      ---> sysLatency = max(module latencies) (one module doing all the steps or one module per step)
+    --System Throughput = module Throughput x N (tasks)
+
+- Fast Path
+    --- with different concurrent modules:
+      f1 = fraction of requests by mod 1
+      f2 = fraction of requests by mod 2
+      f1 + f2 = 1
+      avg system latency = f1 * L1 + f2 * L2
+
+      --> Throughput sizes can differ!
+                --- data compression (Throuput_in > Throughput_out)
+                --- data decompression (Throughput_in < throughput_out)
+
+- Limitations
+S: Speedup portion
+P = portion of total time that can be improved
+Total SpeedUp = 1/ (1 - P) + P/S
+
+
+Pipelining works if all stages are of the same LENGTH
+--> What if the stages are diff length:
+    --> bounded buffer queue requests between stages
+--> What if average throughput for stages is different?
+    --- buffers fill more
+    --- latency increases idleing in buffers
+    --- causes overload, higher throughput wiht less latency!
+
+How to deal with these limitations:
+
+Batching: group requests together
+Dallying: delay a request
+Speculation: 
+
+## How to design a system to improve performace:
+
+1. We can measure the system to see if it needs a Speedup
+2. We can measure again to find BOTTLENECKS
+3. We can predict the impact of removing said BOTTLENECKS
+    ---> if removing it hardly helps , maybe revamp the design
+    ---> if removing the bottleneck does help performance, find way to properly remove it
+4.implement solution and repeat
+
+--> Workload: Tasks / requests processed by a server
+        --> different workloads perform differently
+        --> Systems are optimized for a particular typre of workloads
+
+ 1. Instrument our system to measure performance on a real workload
+ --> need a real system to measure performance
+ --> measurements only apply to the current workload its running
+2. or use a SIMULATed systems 
+---> build a model 
+---> model less accurate than real system
+3. or use BENCHMARKS along with real traces
+---> may involve randomness
+---> synthetic workload based on characteristics obesrved in real operations
+
+
+## Caching
+
+
+Memoization: Remember the result of an expensive computation as to not redo-it
+---> Fibonacci F_n = F_{n-1} + F_{n - 2}
+
+- Naive Recursion: fib(n) recomputes the same subrpoblems exponentially many time_since_epoch
+        --> F(6) = 13, costs 25 calls
+        --> F(40) costs 331,160,340 calls!
+
+    Runtime: O(e^n) - exponential
+- fib_memo(n): stores results in an array N[a]
+    ---> if N[a] is UNSET --> compute then store, otherwise return cached value
+    --->Runtime = O(n)
+    ---> fib(40) drops from 331M calls to 79 calls!
+
+
+    IMPORTANT:
+        Memoization is assumed unbounded (stores everything)
+        Caches are bounded --- limited size so must evict
+            --- associativity, miss types, and replacements policies exist because a real cache cannot hold everything
+        --> Caching is remembering expensive computations IN CASE they are needed again, using a smaller & faster storage in front of a larger / slower secondary storage
+            --> caching is retained until updated or space is needed, longer lasting than a buffer, data stored repeatedly whereas a buffer stores only once
+        caching is in:
+            hardware - CPU cache fronts
+            OS - file-system caches
+            Application - we clients cache pages
+            Whole systems - cache databases
+
+
+    Size of Cache vs secondary memory
+    --> size: cache < primary storage < secondary storage
+    --> speed: cache > primary storage > secondary storage
+
+    Working set vs cache size
+    --> cache is smaller than the data, cannot store everything
+    --> working set = set of distinct items refrences during the interval delta t.
+        |--> w(delta t) usually much smaller than total item count, grows then plateaus as delta t uncreases
+
+    Locality of reference
+    --> temporal locality -- recently used items likely to be used again
+    --> spatial locality -- items near recently used items are likely to be referenced
+
+    --> caching takes advantage of this by keeping the recently used items for fast retrieval
+
+    Caching Terms
+
+    Cached data -- all data currently held in the cache
+    uncached data -- not in the cache
+    evicted item -- item kicked out of the cache to make room; written into secondary storage if needed
+    Hit -- request satisfied from cache
+    Miss -- request must be fetched from secondary storage
+
+    Write-through vs write-back
+
+    write-through: write to the cache & back-end at once
+    write-back: write to the cache only; the moded block is flushed to secondary storage later
+
+    ## associativity - which slots can hold a given item
+    - ex: RAM = 64 words (addresses 0 - 63), cache = 8 entries
+
+    Scheme | Where an item can go | cache-line index | #sets | Hardware/software
+    1-way           one slot           addr % 8          8           typical HW caches
+    2-way   one of two slots in set    addr % 4          4
+    4-way   one of four slots in set   addr % 2          2
+    fully           anywhere           no index          1          SW Caches, some VM
+
+    Direct-Mapped: index bits pick a block; the tag is the rest of thea address
+    N-Way: index bits choose a set; the item can sit in any of the N slots
+    Fully Associative: no index bits -- the tag is the entire address so the item can go anywhere
+
+    Types of Cache Misses
+
+    - Compulsory -> the vyer first reference to a block is a miss: Writing to an empty cache block for the FIRST time would be a compulsary miss
+    - Capacity   -> Data evicted because working set would not fit -- can fix by increasing cache size
+    - Conflict   -> caused by mapping restriction, Collisions
+
+    1. inifnite cache causing a miss -> compulsary
+    2. miss in a fully-associative cache of the same size --> capacity, working set does not fit
+    3. else conflict
+
+    Mechanism: algorithms and structures used 
+    Policy: the decision of what action to perform (which pages do you keep in memory)
+
+    ## Virutal Memory Framing
+
+    Translating a virtual address (CPU + OS Virt Addr + Process ID)
+
+        - Physical Memory -> Done (Hit)
+        - On Disk -> Page Fault -- OS fetches the page from the Disk
+        - Invalid -> Segmentation Fault
+
+        Page-fault handling: old page -> write back to disk -> read new page into slot -> update VM structures (tricky atomicity)
+
+        Fetch Policy -- WHEN are values brought in
+            - Here: on-demand (brought in when requested)
+            - Alternative: predict/prefetch pahes that might be used soon (CPU caches do this)
+        removal policy -- WHEN are values evicted
+         - here: on-demand(evict only when necessary) 
+    ## Removal / Page - Replacement policies
+
+    Cache Capacity is fixed; evict the page which is least likely to be used soon --> track accesses, evict by principle
+
+    LRU - Least Recently Used
+    - Evict he page that has gone unused the longest time.
+        --> tracks RECENCY of use; exploits temporal locality 
+    FIFO - First-In, First-out
+    -   Keep in a linked list oredered by arrival time; evict the oldest (front)
+    - Evicts by age rather than usage 
+
+
+    Hit: Occurs when requested data is already in the cache -- no secondary storage involved
+    Miss: Occurs when requested data is NOT in the cache -- forces a fetch from secondary storage
+        --> Not inherently bad, describes what happened during fetching / writing.
+        --> Cost: Latency penatly during fetching -- A RAM miss can especially be lethal, forcing millions of cycles to fetch information when the working set exceeds the cache size
+    
