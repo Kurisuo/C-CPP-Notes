@@ -1,3 +1,5 @@
+## System Calls
+
 - C strings vs. char arrays
     --> Example: On a typical 64-bit system, after char *s = "abc"; char t[10] = "abc";, which statement is correct?
         --> sizeof(s) return pointer size; sizeof(t) returns 10; strlen() for both returns 3
@@ -34,27 +36,40 @@
                 --> p+= res; n -= res; We increment the buff pointer by the amount of bytes written and decresase n by the amount of bytes we have written
 
 
-- Complexity
+## Complexity
     
     (URGENT)
     - Issues/Properites (emergent properties, propagation of effects,
     incommensurate scaling, trade offs)
-        ---> Emergent: Properties which emerge unexpectantly 
-        ---> Propogation: Properties which are caused from the inclusion or addition of certain properties
-        ---> incommensurate scaling:Properties which grow disproportinately to others within a system; when we add one layer of complexity, another layer may require another ten!
+        ---> Emergent: Properties which emerge unexpectantly when combining individual components within a system
+        ---> Propogation: Components of a system which are affected by the inclusion, change, or addition of certain properties
+        ---> incommensurate scaling: Properties which grow disproportinately to others within a system; when we add one layer of complexity, another layer may require another ten!
         ---> Trade offs: Sacrificing or trading-off a property of a system for the gained benefits of another
 
+    (URGENT)
+    - Signs of Complexity (number of components or interconnections, regularity, size
+    of description, number of designers)
+        --> interconnections: many connected components
+        --> irregularity: many little differences
+        --> Size: the size
+        --> Num of Designers: number of designers required to maintain
 
-
-    - Signs (number of components or interconnections, regularity, size
-    of
-    description, number of designers)
+    (URGENT)
     - Sources (interaction of requirements, trying to improve some
-    measure of
-    goodness, law of diminishing returns, principle of excessive
-    generality,
+    measure of goodness, law of diminishing returns, principle of excessive generality,
     principle of escalating complexity)
+        --> Interaction of requirements
+        --> Mesure of goodness
+        --> Excessive Generality: One function / program trying to do too many different things
+        --> Excalating Complexity: Adding more layers to the system
+    
+    
     - Managing (modularity, abstraction, layering, hierarchy)
+        --> Modularity : Big things into smaller pieces
+        --> Abstraction: Treat a component as another logical component
+        --> Layering:  Reduces interconnections by layering
+        --> Hierarchy: Create small subsystems that communicate with other subsystems
+
 - Fundamental abstractions
     - Memory (storing)
     - Operations (read/write)
@@ -62,20 +77,161 @@
     bandwidth/latency, effect of synchronous/asynchronous on
     latency/bandwidth, granularity, failure rates, concurrency,
     atomicity)
+
+
+
 - Interpreters (computing)
     - Parts (instruction reference, repertoire, environment
     reference)
+        -- ins ref: pointer to next instruction
+        -- rep: set of instruction
+        -- env: reference to the state of the system
+
     - Layering Interpreters (atomicity)
 - Communication Links
     - Operations (send/receive, why not memory's read/write?)
     - Examples
+
+
 - Client-Server Organization
     - Soft Modularity (functions calls, consequences)
+        --> Objects, packages
+        --> APIs, Trsut
+        --> High performance
+        --> poor fault isolation, a crash or memory leak in one module brings the whole program down
+
     - Hard Modularity (independent interpreters and memory, advantages)
+        --> physical microservices/memory spaces
+        --> OS / hardware restrictoins
+        ==> lower performance
+        --> hihg fault isolation
 
 (URGENT REVIEW)
-- Remote Procedure Calls (RPCs)
+- Remote Procedure Calls (RPCs) - How requests are handled
     - What they are
     - RPC Error Handling (At Least Once, At Most Once, Exactly Once)
-    - Asynchronous RPCs
+        --> At Least Once: Request keep retrying until recieved ackknowledgment
+        --> At Most Once: Client sends request, if no response arrives it either gives up or asks to try again
+        --> Exactly Once: Theoritcally impossible in distributive systems, Guarentees requests are never lost or duplicated
+    - Asynchronous RPCs: Requests are remotely sent and continously executed without waiting for an answer
     - Marshaling (example and why needed)
+        --> Like translation across different OS
+
+
+
+## Virtualization
+
+- Why virtualize?
+- Provides most features of hard modularity using virtual interpreters
+and
+memory
+- Three kinds of virtualization and examples:
+- multiplexing
+- aggregation
+- emulation
+
+## Bounded Buffers
+
+- API
+- Pseudocode and needs for synchronization
+- Lack of atomicity
+- thr_demo.c
+- Process states (ready, running, blocked, zombie)
+- Definitions (race conditions and data races)
+
+## Synchronization
+- Mutual exclusion
+- Critical sections for shared resources
+- Determining/proving outcomes
+- Locks/Mutexes — acquire() and release() operations
+- Spin lock in bounded buffer to avoid deadlock
+- Examples:
+    - threads1.c — pthread_create(), thread function, thread's initial state
+    - threads2.c — the kludge of using sleep() to keep main() going so
+    that threads can run
+    - threads3.c — using pthreads_join() to keep main() going so that
+    threads can run
+
+
+## pthreads library, Mutexes, and Condition Variables
+
+- Processes vs. threads
+- pthread_create() details
+- pthread_exit() and pthread_join()
+- zombie states — how related to pthread_exit() and pthread_join(), why
+should we call pthread_join()?
+- Condition variables — wait(), signal(), broadcast()
+- Associating with a lock/mutex (why?)
+- To avoid a spin lock, wait() replaces a "release()/acquire()" pair
+- Creating/initializing a condition variable
+- Using pthread_cond_wait(), pthread_cond_signal(),
+pthread_cond_broadcast()
+- Examples:
+- the_demo.c with mutexes to force atomic ++counter
+- threads7.c — Synchronizing threads using a mutex and a condition
+variable. Sharing a decision function to coordinate
+thread synchronization decisions.
+
+
+## Lecture 18
+- Semaphores, Turnstiles, and Barriers. Be certain to understand how to
+use
+these synchronization mechanisms. If there's a scrambler, then it will
+cover one or more of these concepts.
+
+## Lecture 19
+- Historical synchronization methods: Strict Alternation, Dekker's
+Algorithm,
+and Lamport's Bakery Algorithm. Be certain to understand what these
+different algorithms do, how they are similar, and how they compare to
+pthreads mutexes. What are their advantages and disadvantages compared
+to each other and to using pthreads mechanisms like mutexes and condition
+variables.
+
+## Lecture 20
+- Reader/writer locks. What a reader-writer lock is and why we use it.
+
+## Lecture 21
+- Monitors. What they are. The difference between Hoare and Mesa monitor
+semantics.
+
+Performance
+- Pipelining (system latency and throughput)
+- Concurrency (system latency and throughput)
+- Fast Path (system latency and throughput)
+- Effect of data compression/decompression on system latency/throughput
+- Amdahl's Law (derivation, what it means, diminishing returns)
+- Batching, queueing, speculation
+- What is a "workload"?
+- Kinds of workloads (real workload, simulated system, benchmarks)
+Lecture 24 -- Performance
+- What is a patent?
+Lectures 25 through 27 -- Caching
+- Memoization vs. Caching
+- Size of cache vs. size of secondary storage
+- Working set and size of working set compared to size of cache
+- Locality of reference
+- Thrashing
+- Terms
+- Evicted item
+- Uncached data
+- Cached data
+- Write-back Cache
+- Write-through Cache
+- Hits and Misses
+- Associativity
+- Fully associative
+- Direct-mapped
+- N-Way
+- Kinds of Misses (how do we know which kind it is?)
+- Compulsory
+- Capacity
+- Conflict
+- Mechanism vs. Policy
+- Fetch Policy
+- Removal Policies
+- LRU
+- FIFO (Belady's anomaly)
+- Second-chance / Clock Algorithm
+- NRU (uses dirty bit and referenced bit)
+- OPT
