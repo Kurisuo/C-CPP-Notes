@@ -17,18 +17,24 @@
     --> Global: Program-wide scope, auto set to 0
     Ex1: Inside a function, consider char *p; and static char *q; before either is explicitly assigned. Which is correct?
         --> q starts as NULL, p points to garbage, q will retain its value statically
-        
+
 
 - Difference between sizeof() and strlen()
     --> sizeof() retrieves the byte count of a type / variable
     --> strlen() retrieves the length of a string
 
 
-- Using the functions of Unix file I/O, including open(), creat(),
-close(),
-read(), write(), unlink(), lseek(), and fstat(). Can you use these
-functions to write simple C routines?
-
+- Using the functions of Unix file I/O, including open(), creat(), close(), read(), write(), unlink(), lseek(), and fstat(). Can you use these functions to write simple C routines?
+    ---> open(): int file_descriptor = open(FILE_PATH, int FLAGS, mode_t MODE); Returns a nonnegative file descriptor integer for the designated file; FLAGS dictate file access mode or behavioral attributes; mode correlates to file permissions
+    ---> creat(): redundant, services similar to those of open;Used to create new file or rewrite existing one; 
+    ---> close(): Closes a file descriptor; returns ZERO on success; returns -1 on failure and ERRNO to dictate Error
+    ---> read(): ssize_t read(int fd, buf, size_t count); Reads up to COUNT bytes from fd (file descriptor); returns zero on EOF; returns n > 0 on num of bytes actually read; returns -1 on failure
+    ---> write():  ssize_t write(int fd, buf, size_t count); Writes up to count Bytes; buf contains the information we want to write; returns -1 on error, returns n > 0 bytes written on success
+    ---> unlink()
+    ---> lseek()
+    ---> fstat()
+        --> Ex1: In a robust loop that writes all n bytes from pointer p, after res = write(1, p, n) returns a positive value, what should happen next?
+                --> p+= res; n -= res; We increment the buff pointer by the amount of bytes written and decresase n by the amount of bytes we have written
 
 
 - Complexity
