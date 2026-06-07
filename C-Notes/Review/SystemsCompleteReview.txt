@@ -118,33 +118,45 @@
         --> Like translation across different OS
 
 
-
 ## Virtualization
 
-- Why virtualize?
+- Why virtualize? --> Several modules on one computer, seperate virtual interperters and memories so we can some benefits of both soft and hard modularity although we still run the risk of power failure, layers of defense
 - Provides most features of hard modularity using virtual interpreters
-and
-memory
+and memory
 - Three kinds of virtualization and examples:
-- multiplexing
-- aggregation
-- emulation
+- multiplexing --> Using a physical object to make multiple virtual objects
+- aggregation  --> Using multiple physical objects to make a unified virtual object
+- emulation    --> new type of virtual object using physical objects
 
 ## Bounded Buffers
 
 - API
+    --> One or more PRODUCERS generate data and place it into a fixed-size buffer while one or more CONSUMERS remove and process that data
+    --> FIFO Buffer SEND/RECIEVE
+
 - Pseudocode and needs for synchronization
 - Lack of atomicity
+    --> Inaccurate results
 - thr_demo.c
 - Process states (ready, running, blocked, zombie)
+
+(URGENT REVIEW)
 - Definitions (race conditions and data races)
+    --> Race condition: behavior alternation due to timing/relative order of thread execution
+    --> Data Races: Memory management issue; at least one access is a write; multiple threads trying to manipulate the same memory location without synchronization
 
 ## Synchronization
 - Mutual exclusion
 - Critical sections for shared resources
 - Determining/proving outcomes
+
+(URGENT REVIEW)
 - Locks/Mutexes — acquire() and release() operations
+    -- aquire() aquires the lock for a specific thread
+    -- release() releases lock for specific thread
 - Spin lock in bounded buffer to avoid deadlock
+
+
 - Examples:
     - threads1.c — pthread_create(), thread function, thread's initial state
     - threads2.c — the kludge of using sleep() to keep main() going so
@@ -160,17 +172,14 @@ memory
 - pthread_exit() and pthread_join()
 - zombie states — how related to pthread_exit() and pthread_join(), why
 should we call pthread_join()?
+
+(URGENT REVIEW)
 - Condition variables — wait(), signal(), broadcast()
 - Associating with a lock/mutex (why?)
 - To avoid a spin lock, wait() replaces a "release()/acquire()" pair
 - Creating/initializing a condition variable
-- Using pthread_cond_wait(), pthread_cond_signal(),
-pthread_cond_broadcast()
-- Examples:
-- the_demo.c with mutexes to force atomic ++counter
-- threads7.c — Synchronizing threads using a mutex and a condition
-variable. Sharing a decision function to coordinate
-thread synchronization decisions.
+- Using pthread_cond_wait(), pthread_cond_signal(), pthread_cond_broadcast()
+    -->
 
 
 ## Lecture 18
@@ -195,43 +204,59 @@ variables.
 - Monitors. What they are. The difference between Hoare and Mesa monitor
 semantics.
 
-Performance
-- Pipelining (system latency and throughput)
-- Concurrency (system latency and throughput)
-- Fast Path (system latency and throughput)
-- Effect of data compression/decompression on system latency/throughput
-- Amdahl's Law (derivation, what it means, diminishing returns)
-- Batching, queueing, speculation
-- What is a "workload"?
-- Kinds of workloads (real workload, simulated system, benchmarks)
-Lecture 24 -- Performance
-- What is a patent?
-Lectures 25 through 27 -- Caching
-- Memoization vs. Caching
-- Size of cache vs. size of secondary storage
-- Working set and size of working set compared to size of cache
-- Locality of reference
-- Thrashing
-- Terms
-- Evicted item
-- Uncached data
-- Cached data
-- Write-back Cache
-- Write-through Cache
-- Hits and Misses
-- Associativity
-- Fully associative
-- Direct-mapped
-- N-Way
-- Kinds of Misses (how do we know which kind it is?)
-- Compulsory
-- Capacity
-- Conflict
-- Mechanism vs. Policy
-- Fetch Policy
-- Removal Policies
-- LRU
-- FIFO (Belady's anomaly)
-- Second-chance / Clock Algorithm
-- NRU (uses dirty bit and referenced bit)
-- OPT
+## Performance
+    - Pipelining (system latency and throughput)
+    - Concurrency (system latency and throughput)
+    - Fast Path (system latency and throughput)
+    - Effect of data compression/decompression on system latency/throughput
+    - Amdahl's Law (derivation, what it means, diminishing returns)
+    - Batching, queueing, speculation
+    - What is a "workload"?
+    - Kinds of workloads (real workload, simulated system, benchmarks)
+
+## Caching
+    - Memoization vs. Caching
+    - Size of cache vs. size of secondary storage
+    - Working set and size of working set compared to size of cache
+    - Locality of reference
+    - Thrashing
+    - Terms
+    - Evicted item
+    - Uncached data
+    - Cached data
+    - Write-back Cache
+    - Write-through Cache
+    - Hits and Misses
+    - Associativity
+    - Fully associative
+    - Direct-mapped
+    - N-Way
+    - Kinds of Misses (how do we know which kind it is?)
+    - Compulsory
+    - Capacity
+    - Conflict
+    - Mechanism vs. Policy
+    - Fetch Policy
+    - Removal Policies
+    - LRU
+    - FIFO (Belady's anomaly)
+    - Second-chance / Clock Algorithm
+    - NRU (uses dirty bit and referenced bit)
+    - OPT
+
+
+
+## Threat models
+- Attacker motivation?
+- Attacker power (What does the attacker know and what can they do?)
+- Attacker lack of power (what do we assume they can't do?)
+- Types of Security Vulnerabilities
+- Corner-case Bugs (definition, example: goto fail)
+- Unsanitized-input Bugs (definition, examples: SQL injection,
+Heartblead)
+- Side-channel Bugs (definition, examples: password comparision and
+time to run strcmp(), extract a smartcard's key by measuring current
+flow, SPECTRE, MELTDOWN)
+- Dependency Vulnerabilities (definition, examples: SolarWinds,
+Log4j)
+- Operational Errors (definition, example: Enigma)
