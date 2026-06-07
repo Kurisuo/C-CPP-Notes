@@ -1,0 +1,67 @@
+
+
+
+- C strings vs. char arrays
+    --> Example: On a typical 64-bit system, after char *s = "abc"; char t[10] = "abc";, which statement is correct?
+        --> sizeof(s) return pointer size; sizeof(t) returns 10; strlen() for both returns 3
+    --> Example2: How many bytes are initialized by char t[] = "abc";?
+        --> 4 bytes, including the terminating '\0'
+    --> Ex 3: Which statement best explains why char *s = "abc"; s = NULL; is allowed, but char t[10] = "abc"; t = NULL; is not?
+        --> The array t is an array object and cannot be assigned to something directly like the pointer can
+
+
+
+- C variables (local, static, global)
+    --> Local Variables: Of local scope - Live on the stack temporarily while being called, flushed afterwards when no longer in use
+    --> Static: Lifetime of a static variable lasts until end of program. Value of a static does not end upon a function returning its value, set to NULL or 0 when not initialized
+    --> Global: Program-wide scope, auto set to 0
+    Ex1: Inside a function, consider char *p; and static char *q; before either is explicitly assigned. Which is correct?
+        --> q starts as NULL, p points to garbage, q will retain its value statically
+        
+
+- Difference between sizeof() and strlen()
+    --> sizeof() retrieves the byte count of a type / variable
+    --> strlen() retrieves the length of a string
+
+
+- Using the functions of Unix file I/O, including open(), creat(),
+close(),
+read(), write(), unlink(), lseek(), and fstat(). Can you use these
+functions to write simple C routines?
+
+
+
+- Complexity
+    - Issues/Properites (emergent properties, propagation of effects,
+    incommensurate scaling, trade offs)
+    - Signs (number of components or interconnections, regularity, size
+    of
+    description, number of designers)
+    - Sources (interaction of requirements, trying to improve some
+    measure of
+    goodness, law of diminishing returns, principle of excessive
+    generality,
+    principle of escalating complexity)
+    - Managing (modularity, abstraction, layering, hierarchy)
+- Fundamental abstractions
+    - Memory (storing)
+    - Operations (read/write)
+    - Properties (volatility, abundance, cost per unit, performance,
+    bandwidth/latency, effect of synchronous/asynchronous on
+    latency/bandwidth, granularity, failure rates, concurrency,
+    atomicity)
+- Interpreters (computing)
+    - Parts (instruction reference, repertoire, environment
+    reference)
+    - Layering Interpreters (atomicity)
+- Communication Links
+    - Operations (send/receive, why not memory's read/write?)
+    - Examples
+- Client-Server Organization
+    - Soft Modularity (functions calls, consequences)
+    - Hard Modularity (independent interpreters and memory, advantages)
+- Remote Procedure Calls (RPCs)
+    - What they are
+    - RPC Error Handling (At Least Once, At Most Once, Exactly Once)
+    - Asynchronous RPCs
+    - Marshaling (example and why needed)
