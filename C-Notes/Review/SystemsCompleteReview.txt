@@ -206,7 +206,9 @@ On Exam:
 down(sem) - decrements counter; if counter already 0, thread goes to sleep until pass is available
 up(sem)   - incremenets counter; if there are threads sleeping, wakes one of them up
 
-
+Turnstiles: a semaphore, acts like a locked gate, threads queue up at a gate completely blocked, once a condition is met, the gate is unlocked
+Barriers: No threads are allowed to proceed unless all of them have arrived
+    Analogy: If i arrive to the restuarant early, 
 
 
 ## Lecture 19
