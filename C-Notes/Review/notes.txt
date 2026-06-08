@@ -221,3 +221,16 @@ Corner-Case Bugs: When a system neglects logic on one or more corner cases, caus
     |Solution --> Better testing & formal verification
     |Mitigation: Principle of least privilage, isolate components
 
+Unsanitized-Input Bugs: System taking in user input without verifying it
+    |Ex: SQL Injection
+
+Side-Channel Bugs: Factors stemming from inputs/outputs that an attacker can use to find out needed information
+    | Ex: Timing - Password comparison: strncmp() reports failure on the first char, exposing the password one char at a time
+    | Ex2: Cache - attacker fills cache lets victim idle then times accesses to every cache line
+
+Spectre: Speculative exclusion, mistrain the branch predictor
+
+Meltdown: Exploits race between memory access and privilage checking
+
+Dependency Vulnerabilities: Systems rely on internal software, break the dependency, break the system
+Operational Errors: A system is only as secure as its operators
