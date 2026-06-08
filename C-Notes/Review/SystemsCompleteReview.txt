@@ -179,14 +179,35 @@ should we call pthread_join()?
 - To avoid a spin lock, wait() replaces a "release()/acquire()" pair
 - Creating/initializing a condition variable
 - Using pthread_cond_wait(), pthread_cond_signal(), pthread_cond_broadcast()
-    -->
-
+    --> pthread_cond_wait(cond_var, mutex); Blocks the calling thread until condition is signaled
+        -->
 
 ## Lecture 18
 - Semaphores, Turnstiles, and Barriers. Be certain to understand how to
-use
-these synchronization mechanisms. If there's a scrambler, then it will
+use these synchronization mechanisms. If there's a scrambler, then it will
 cover one or more of these concepts.
+
+Semaphores - wait() signal() 
+
+wait() --> reduces semaphore to 0
+//crit section
+post/signal() --> increments sempahore to 1
+
+When multiple threads call wait() all but one will have to wait until the sempahore is released
+
+Binary Semaphores: Initialized with count of 1. acts exactly like a mutex enforcing mutual exclusion
+Counting Semaphores: Initialized with N threads, allows those N threads to access the critical section at the same time
+
+sem_wait()
+sem_post()
+
+On Exam:
+
+down(sem) - decrements counter; if counter already 0, thread goes to sleep until pass is available
+up(sem)   - incremenets counter; if there are threads sleeping, wakes one of them up
+
+
+
 
 ## Lecture 19
 - Historical synchronization methods: Strict Alternation, Dekker's
