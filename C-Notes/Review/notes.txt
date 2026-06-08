@@ -188,10 +188,36 @@ Memoization: Remember the result of an expensive computation as to not redo-it
     FIFO - First-In, First-out
     -   Keep in a linked list oredered by arrival time; evict the oldest (front)
     - Evicts by age rather than usage 
-
-
+    NRU - Not Recently Used
+        --> A replacement policy that approximates LRU policy
+        --> Uses the reference bit and the modify bit
     Hit: Occurs when requested data is already in the cache -- no secondary storage involved
     Miss: Occurs when requested data is NOT in the cache -- forces a fetch from secondary storage
         --> Not inherently bad, describes what happened during fetching / writing.
         --> Cost: Latency penatly during fetching -- A RAM miss can especially be lethal, forcing millions of cycles to fetch information when the working set exceeds the cache size
     
+
+##  Security
+
+
+Threat Models - Always assume the attackers know what program you are running
+    |--> Never rely on security through obscurity
+    |Ex --> One secret key that holds access to all gates, if someone finds it security is completely compromised
+
+Kerkchoff's doctrine: Security should depend on the KEY; count it as system design 
+Attacker Motivation: Learn something privileged about the user/take over their machine
+
+Attacker power:
+
+Single-node: observe timing of actions, observe inputs/outputs, control inputs.
+Multi-node (Man-in-the-Middle): observe, drop, and change messages between nodes.
+
+Attacker lack of power: What we know they cannot directly do
+    |--> Read program memory?
+    |--> Decrypt properly encrypted data?
+
+Corner-Case Bugs: When a system neglects logic on one or more corner cases, causing attackers to access them and exploit them
+    |Ex--> Apple's goto fail which duped a goto line causing the program to skip sslRawVerify() authentication 
+    |Solution --> Better testing & formal verification
+    |Mitigation: Principle of least privilage, isolate components
+
