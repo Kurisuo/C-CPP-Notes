@@ -321,3 +321,11 @@ Meltdown: Exploits race between memory access and privilage checking
 
 Dependency Vulnerabilities: Systems rely on internal software, break the dependency, break the system
 Operational Errors: A system is only as secure as its operators
+
+
+
+
+Exam:
+
+Examples of Fundamental Abstractions: memory, interpreters, communication Links
+Modules in soft modular system share a memory and interpreters
