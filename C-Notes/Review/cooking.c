@@ -8,7 +8,6 @@ void globals {
     int num_frying_pans = N;
 }
 
-
 void cook() { 
 
 
