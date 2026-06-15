@@ -1,0 +1,4 @@
+Supervised Learning: Labeled dataset used to train models - used for when there is a specific known output in mind
+Unsupervised Learning: Non-labeled dataset used to train models - used to identify patterns and structures in non-specific outputs
+Reinforcement Learning: Used to train models through trail-and-error process
+
