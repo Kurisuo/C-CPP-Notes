@@ -1,4 +1,43 @@
 Supervised Learning: Labeled dataset used to train models - used for when there is a specific known output in mind
 Unsupervised Learning: Non-labeled dataset used to train models - used to identify patterns and structures in non-specific outputs
 Reinforcement Learning: Used to train models through trail-and-error process
+---------
+
+## Prompting
+
+Guidelines for improved LLM Prompting: 
+    ---> Persona - Task - Format - Context
+    | -> Provide examples or references
+    | -> Utilize multimodal capabilities
+    | -> Improve output through interation
+
+Give AI a process to follow
+Think step-by-step.
+
+First, [action 1]. Second, [action 2]. Finally, [action 3].
+
+Define the audience and tone
+Write this for an audience of [audience type, e.g., executives].
+
+The tone should be [tone, e.g., professional].
+
+Set hard constraints
+Write a one paragraph summary.
+
+Focus exclusively on [topic A, e.g. revenue] and do not mention [topic B, e.g., costs].
+
+Request a critique
+Critique this text from the perspective of a [role, e.g., potential customer].
+
+Play devil's advocate. What is the strongest counterargument to this?
+
+Generate alternatives
+Give me 3 different versions of this.
+
+What's an alternative approach to solving this problem?
+
+Deepen or expand on the initial output
+Elaborate on point 2.
+
+Provide more detail and specific examples for the section about [section].
 
