@@ -79,4 +79,8 @@ multiple mappers, minimal reducers
     - central state across multiple running processes
     - processes access and update their own and central state 
     - ensure two processes dont have access to the same data simultaneously 
+    - the role of the repository is to manage access to shared data
+
+- recursion
+    - does not work well when distributed across CPUs, networked machines, or GPUsdue to mangament states being complex/wasteful
 
