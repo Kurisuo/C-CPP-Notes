@@ -63,3 +63,20 @@
 - Locks, Sempahores, Algorithms
 
 
+##Concurrent Programming patterns
+
+- Divide and Conquer
+    -> Divide Large Datasets
+    -> Recursive Algorithms
+    -> Used to solve smaller subsets of problems, they can be combined into larger solutions
+- Map Recursive= individual data points
+returns only one value 
+reduces to a single value
+may include myltiple stages and repeated iterations
+multiple mappers, minimal reducers
+
+- repository
+    - central state across multiple running processes
+    - processes access and update their own and central state 
+    - ensure two processes dont have access to the same data simultaneously 
+
