@@ -84,3 +84,6 @@ multiple mappers, minimal reducers
 - recursion
     - does not work well when distributed across CPUs, networked machines, or GPUsdue to mangament states being complex/wasteful
 
+Serial Search
+Parallel Search flynns taxonomy
+
