@@ -1,0 +1,34 @@
+team: Dokkan
+city: San Diego
+
+year_founded: 2017
+is_current_best_game: false
+
+background: > 
+  Dokkan was created in 2016 
+  and launched in 2017 
+
+organization_history: |
+  meow
+  1984-1994
+  another meow
+
+  meow again
+
+famous_players:
+  - name: Datruth
+    number: 21
+
+  - name: nano
+    number: 83
+  - meow
+
+more_famous_players: [meow, anotherdokkanmeow, moredokkanmeowsmeows]
+
+management_stuff:
+  general_manager: christobal
+  president: alsoChristobal
+
+
+
+#COMMENTSSSS
